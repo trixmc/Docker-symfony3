@@ -1,5 +1,6 @@
 FROM      ubuntu:14.04.4
-MAINTAINER Olexander Kutsenko    <olexander.kutsenko@gmail.com>
+MAINTAINER Olexander Kutsenko     <olexander.kutsenko@gmail.com>
+MAINTAINER Olexander Vdovychenko  <farmazin@gmail.com>
 
 #Create docker user
 RUN mkdir -p /var/www
@@ -99,6 +100,11 @@ RUN cd /usr/bin && ln -s ~/.composer/vendor/bin/phpcpd
 RUN cd /usr/bin && ln -s ~/.composer/vendor/bin/phpmd
 RUN cd /usr/bin && ln -s ~/.composer/vendor/bin/phpcs
 
+#MongoDB
+COPY configs/mongo.sh /root/mongo.sh
+RUN chmod +x /root/*.sh
+RUN /root/mongo.sh
+
 #etcKeeper
 RUN mkdir -p /root/etckeeper
 COPY configs/etckeeper.sh /root/etckeeper.sh
@@ -106,6 +112,10 @@ COPY configs/files/etckeeper-hook.sh /root/etckeeper/etckeeper-hook.sh
 RUN chmod +x /root/etckeeper/*.sh
 RUN chmod +x /root/*.sh
 RUN /root/etckeeper.sh
+
+#Node & npm
+sudo apt-get install nodejs -y
+sudo apt-get install npm -y
 
 #open ports
 EXPOSE 80 22 9000
