@@ -114,8 +114,8 @@ RUN chmod +x /root/*.sh
 RUN /root/etckeeper.sh
 
 #Node & npm
-sudo apt-get install nodejs -y
-sudo apt-get install npm -y
+RUN apt-get install nodejs -y
+RUN apt-get install npm -y
 
 #open ports
 EXPOSE 80 22 9000
