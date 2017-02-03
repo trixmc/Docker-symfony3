@@ -8,4 +8,3 @@ mcdir -p /data/db
 mcdir -p /data/arb-rs0
 mcdir -p /data/arb-rs1
 apt-get install mongodb-org -y
-chmod -R mongodb:mongodb /data/*
