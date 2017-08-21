@@ -39,13 +39,12 @@ COPY configs/php/php.ini  /etc/php/7.0/fpm/php.ini
 COPY configs/php/xdebug.ini /etc/php/7.0/mods-available/xdebug.ini
 
 #Install Percona Mysql 5.6 server
-RUN wget https://repo.percona.com/apt/percona-release_0.1-3.$(lsb_release -sc)_all.deb
-RUN dpkg -i percona-release_0.1-3.$(lsb_release -sc)_all.deb
-RUN rm percona-release_0.1-3.$(lsb_release -sc)_all.deb
+RUN wget https://repo.percona.com/apt/percona-release_0.1-4.$(lsb_release -sc)_all.deb
+RUN dpkg -i percona-release_0.1-4.$(lsb_release -sc)_all.deb
 RUN apt-get update
-RUN echo "percona-server-server-5.6 percona-server-server/root_password password root" | sudo debconf-set-selections
-RUN echo "percona-server-server-5.6 percona-server-server/root_password_again password root" | sudo debconf-set-selections
-RUN apt-get install -y --allow-unauthenticated percona-server-server-5.6
+RUN echo "percona-server-server-5.7 percona-server-server/root_password password root" | sudo debconf-set-selections
+RUN echo "percona-server-server-5.7 percona-server-server/root_password_again password root" | sudo debconf-set-selections
+RUN apt-get install -y --allow-unauthenticated percona-server-server-5.7
 COPY configs/mysql/my.cnf /etc/mysql/my.cnf
 
 # SSH service
@@ -100,18 +99,6 @@ RUN cd /usr/bin && ln -s ~/.composer/vendor/bin/phpcpd
 RUN cd /usr/bin && ln -s ~/.composer/vendor/bin/phpmd
 RUN cd /usr/bin && ln -s ~/.composer/vendor/bin/phpcs
 
-#MongoDB
-COPY configs/mongo.sh /root/mongo.sh
-RUN chmod +x /root/*.sh
-RUN /root/mongo.sh
-
-#etcKeeper
-RUN mkdir -p /root/etckeeper
-COPY configs/etckeeper.sh /root/etckeeper.sh
-COPY configs/files/etckeeper-hook.sh /root/etckeeper/etckeeper-hook.sh
-RUN chmod +x /root/etckeeper/*.sh
-RUN chmod +x /root/*.sh
-RUN /root/etckeeper.sh
 
 #Node & npm
 RUN apt-get install nodejs -y
