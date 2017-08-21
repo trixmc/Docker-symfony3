@@ -23,20 +23,20 @@ COPY configs/nginx/default /etc/nginx/sites-available/default
 RUN apt-get install -y language-pack-en-base
 RUN LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php
 RUN apt-get update 
-RUN apt-get install -y php7.0 php7.0-cli php7.0-common php7.0-cgi php7.0-curl php7.0-imap php7.0-pgsql
-RUN apt-get install -y php7.0-sqlite3 php7.0-mysql php7.0-fpm php7.0-intl php7.0-gd php7.0-json
-RUN apt-get install -y php-memcached php-memcache php-imagick php7.0-xml php7.0-mbstring php7.0-ctype
-RUN apt-get install -y php7.0-dev php-pear
+RUN apt-get install -y php7.1 php7.1-cli php7.1-common php7.1-cgi php7.1-curl php7.1-imap php7.1-pgsql
+RUN apt-get install -y php7.1-sqlite3 php7.1-mysql php7.1-fpm php7.1-intl php7.1-gd php7.1-json
+RUN apt-get install -y php-memcached php-memcache php-imagick php7.1-xml php7.1-mbstring php7.1-ctype
+RUN apt-get install -y php7.1-dev php-pear
 RUN pecl install xdebug
-RUN rm /etc/php/7.0/cgi/php.ini
-RUN rm /etc/php/7.0/cli/php.ini
-RUN rm /etc/php/7.0/fpm/php.ini
-RUN rm /etc/php/7.0/fpm/pool.d/www.conf
-COPY configs/php/www.conf /etc/php/7.0/fpm/pool.d/www.conf
-COPY configs/php/php.ini  /etc/php/7.0/cgi/php.ini
-COPY configs/php/php.ini  /etc/php/7.0/cli/php.ini
-COPY configs/php/php.ini  /etc/php/7.0/fpm/php.ini
-COPY configs/php/xdebug.ini /etc/php/7.0/mods-available/xdebug.ini
+RUN rm /etc/php/7.1/cgi/php.ini
+RUN rm /etc/php/7.1/cli/php.ini
+RUN rm /etc/php/7.1/fpm/php.ini
+RUN rm /etc/php/7.1/fpm/pool.d/www.conf
+COPY configs/php/www.conf /etc/php/7.1/fpm/pool.d/www.conf
+COPY configs/php/php.ini  /etc/php/7.1/cgi/php.ini
+COPY configs/php/php.ini  /etc/php/7.1/cli/php.ini
+COPY configs/php/php.ini  /etc/php/7.1/fpm/php.ini
+COPY configs/php/xdebug.ini /etc/php/7.1/mods-available/xdebug.ini
 
 #Install Percona Mysql 5.6 server
 RUN wget https://repo.percona.com/apt/percona-release_0.1-4.$(lsb_release -sc)_all.deb
